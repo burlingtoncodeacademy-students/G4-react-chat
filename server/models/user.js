@@ -1,7 +1,7 @@
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 
-const mongoose = require('mongoose');
-
-const userSchema = new mongoose.Schema({
+const User = new mongoose.Schema({
     firstName: {
         type: String,
         required: true
@@ -21,4 +21,10 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User', userSchema)
+//! Hash the password in this model so the password isn't saved?
+
+//! Functionality for comparing the password to the login?
+
+
+
+module.exports = mongoose.model('User', User)
