@@ -10,7 +10,7 @@ router.post('/signup', async (req, res) => {
         const { firstName, lastName, email, password } = req.body;
 
         //Hash the user password
-        const hashedPassword = await bcrypt.hash(password, 10); //! 
+        const hashedPassword = await bcrypt.hash(password, 10); 
 
         //Create the user instance
         const newUser = new User({ 
@@ -26,26 +26,13 @@ router.post('/signup', async (req, res) => {
 
         const token = jwt.sign({id: newUser._id}, SECRET, {expiresIn: "1 day"});
 
+        // Instead of sending JSON, send a simple success message
+          res.status(201).send('User created successfully. Token generated.');
+        } catch (error) {
+            res.status(500).send({ message: 'Failed to create the user', error: error.message });
+        }
+    });
 
-        // Respond with the created user (excluding the password)
-        res.status(201).json({
-            message: 'User created successfully',
-            newUser,
-            token
-        })
-
-    } catch (error) {
-        res.status(500).send({ message: 'Failed to create the user', error: error.message });
-    }
-// Keep for testing
-
-// } catch (err) {
-//     res.status(500).json({
-//         ERROR: err.message
-//     })
-// }
-
-})
   
 
 router.post("/login", async(req, res) => {
@@ -76,13 +63,42 @@ router.post("/login", async(req, res) => {
     }
 })
 
-router.put("/update/:id", async(req, res) => { //! icebox
-    console.log('test upate')
-})
+router.put("/users/update/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { firstName, lastName, email } = req.body; // Exclude password for simplicity
 
-router.delete("/:id", async(req, res) => { //! icebox
-    console.log('test delete')
-})
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            firstName,
+            lastName,
+            email
+        }, { new: true }); // Returns the updated document
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User updated successfully", data: updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to update user", error: error.message });
+    }
+});
+
+router.delete("/users/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deletedUser = await User.findByIdAndDelete(id);
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to delete user", error: error.message });
+    }
+});
 
 
 module.exports = router

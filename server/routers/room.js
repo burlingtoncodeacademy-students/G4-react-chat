@@ -60,4 +60,20 @@ router.put("/rooms/update/:id", async (req, res) => {
 
 //delete
 
+router.delete("/rooms/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deletedRoom = await Room.findByIdAndDelete(id);
+
+        if (!deletedRoom) {
+            return res.status(404).json({ message: "Room not found" });
+        }
+
+        res.status(200).json({ message: "Room deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to delete room", error: error.message });
+    }
+});
+
 module.exports = router;
