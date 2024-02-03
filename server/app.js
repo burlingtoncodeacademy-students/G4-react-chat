@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 const express = require('express');
-const userRoutes = require('./routes/userRoutes');
-const { createUser } = require('./controllers/user.js')
-const { createRoom } = require('./controllers/room.js')
-const { createMessage } = require('./controllers/message.js')
+const user = require('./routers/user.js')
+const room = require('./routers/room.js')
+const message = require('./routers/message.js')
 
 const app = express();
 
@@ -11,9 +10,14 @@ app.use(express.json()); // Middleware to parse JSON bodies
 
 
 // Use the user routes with the base path '/users'
-app.use('/users', userRoutes);
+app.use('/user', user);
+
+app.use('/room', room);
+
+app.use('/message', message);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(Server is running on port ${PORT});
+    console.log(`Server is running on port ${PORT}`);
 });
+

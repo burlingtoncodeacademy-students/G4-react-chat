@@ -38,6 +38,7 @@ router.post('/signup', async (req, res) => {
         res.status(500).send({ message: 'Failed to create the user', error: error.message });
     }
 // Keep for testing
+
 // } catch (err) {
 //     res.status(500).json({
 //         ERROR: err.message
@@ -48,15 +49,39 @@ router.post('/signup', async (req, res) => {
   
 
 router.post("/login", async(req, res) => {
-    
+    try {
+
+        const { email, password } = req.body;
+
+        const user = await User.findOne({email: email});
+
+        if(!user) throw new Error('Email or Password does not match.');
+        
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if(!passwordMatch) throw new Error('Email or Password does not match.');
+
+        const token = jwt.sign({id: user._id}, SECRET, {expiresIn: 60 * 60 * 12});
+
+        res.status(200).json({
+            message: "Logged in!",
+            user,
+            token
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            ERROR: err.message
+        })
+    }
 })
 
-router.put("/update/:id", async(req, res) => {
-
+router.put("/update/:id", async(req, res) => { //! icebox
+    console.log('test upate')
 })
 
-router.delete("/:id", async(req, res) => {
-
+router.delete("/:id", async(req, res) => { //! icebox
+    console.log('test delete')
 })
 
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-const User = new mongoose.Schema({
+const User = new mongoose.Schema({ //! may need to add userId to the schema?
     firstName: {
         type: String,
         required: true
