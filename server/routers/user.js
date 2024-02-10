@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const User = require('../models/user') 
+
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.JWT;
-// Note for self (delete later): '../' refers to parent dir (server)
+
 
 router.post('/signup', async (req, res) => {
     try {
