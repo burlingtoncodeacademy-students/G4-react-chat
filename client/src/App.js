@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       {/* Other components can also be added here */}
       <Auth updateToken={updateToken} />
-      {/* Further components can be rendered here */}
+      {/* Further components can be rendered here... */}
     </div>
   );
 }
