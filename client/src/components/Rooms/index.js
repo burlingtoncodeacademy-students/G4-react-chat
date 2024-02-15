@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Room from "./Room";
 
+// const rooms = [
+//   {
+//     name: "derp",
+//     description: "asdfasdf",
+//     addedUsers: "asdfasd",
+//   },
+// ];
+
 function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
@@ -8,8 +16,9 @@ function Rooms() {
   useEffect(() => {
     // Fetch the list of rooms from the server
     async function fetchRooms() {
-      const response = await fetch("/api/rooms");
+      const response = await fetch("/rooms");
       const roomsData = await response.json();
+      console.log(roomsData);
       setRooms(roomsData);
     }
 

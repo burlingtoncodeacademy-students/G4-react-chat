@@ -7,7 +7,10 @@ function Room({ roomId }) {
   useEffect(() => {
     // Function to fetch messages for the room
     const fetchMessages = async () => {
-      const response = await fetch(`/api/rooms/${roomId}/messages`);
+      // const response = await fetch(`/src/rooms/${roomId}/messages`);
+      const response = await fetch(
+        `../../server/routers/rooms/${roomId}/messages`
+      );
       const messagesData = await response.json();
       setMessages(messagesData);
     };
@@ -17,7 +20,8 @@ function Room({ roomId }) {
 
   const sendMessage = async () => {
     // Send the message to the server
-    const response = await fetch(`/api/rooms/${roomId}/send`, {
+    // const response = await fetch(`/src/rooms/${roomId}/send`, {
+    const response = await fetch(`../../server/routers/rooms/${roomId}/send`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

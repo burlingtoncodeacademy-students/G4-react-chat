@@ -11,9 +11,12 @@ function App() {
     setAuthToken(token);
   };
 
+  // console.log("auth token", authToken);
+
   return (
     <div className="App">
-      {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
+      {/* {authToken ? <Rooms /> : <Auth updateToken={updateToken} />} */}
+      <Rooms />
     </div>
   );
 }
