@@ -27,9 +27,11 @@ function Login({ onLogin, onToggle }) {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button onClick={handleLogin}>Login</button>
+
+      <button class="login-btn" onClick={handleLogin}>Login</button>
+   
       <p>
-        New user? <span onClick={onToggle}>Sign up here!</span>
+        New user? <button onClick={onToggle}>Sign up here!</button>
       </p>
     </div>
   );

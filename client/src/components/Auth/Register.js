@@ -45,7 +45,7 @@ function Register({ onRegister, onToggle }) {
       />
       <button onClick={handleRegister}>Register</button>
       <p>
-        Already have an account? <span onClick={onToggle}>Login here!</span>
+        Already have an account? <button onClick={onToggle}>Login here!</button>
       </p>
     </div>
   );
