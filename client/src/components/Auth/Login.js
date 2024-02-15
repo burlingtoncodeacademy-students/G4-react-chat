@@ -12,7 +12,7 @@ function Login({ onLogin, onToggle }) {
   // Form fields
   return (
     <div>
-      <h2>Login Form</h2>
+      <h2 class="login-title">Login Form</h2>
       <label>Email:</label>
       <input
         type="email"

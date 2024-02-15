@@ -14,7 +14,7 @@ function Register({ onRegister, onToggle }) {
   // Form fields
   return (
     <div>
-      <h2>Register Form</h2>
+      <h2 class="Register-title">Register Form</h2>
       <label>First Name:</label>
       <input
         type="text"
