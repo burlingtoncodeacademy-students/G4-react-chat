@@ -50,5 +50,5 @@ function Register({ onRegister, onToggle }) {
     </div>
   );
 }
-
+//test 
 export default Register;
