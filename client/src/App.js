@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import Auth from "./components/Auth";
+import Rooms from "./components/Rooms"; // Make sure to import Rooms
 import "./App.css";
-import Auth from "./components/Auth"; // Import Auth component
 
 function App() {
-  // Function to update token in localStorage
+  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
+
   const updateToken = (token) => {
     localStorage.setItem("authToken", token);
+    setAuthToken(token);
   };
 
   return (
     <div className="App">
-      {/* Other components can also be added here */}
-      <Auth updateToken={updateToken} />
-      {/* Further components can be rendered here */}
+      {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
     </div>
   );
 }
