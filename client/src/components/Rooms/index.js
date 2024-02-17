@@ -16,7 +16,7 @@ function Rooms() {
   useEffect(() => {
     // Fetch the list of rooms from the server
     async function fetchRooms() {
-      const response = await fetch("/rooms");
+      const response = await fetch("/rooms"); //https://localhost:3000?
       const roomsData = await response.json();
       console.log(roomsData);
       setRooms(roomsData);

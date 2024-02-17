@@ -8,6 +8,13 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+const mongoURI = "mongodb://localhost:27017/react-chat";
+
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connected..."))
+  .catch((err) => console.log(err));
+
 app.use(express.json()); // Middleware to parse JSON bodies
 
 //check browser response
