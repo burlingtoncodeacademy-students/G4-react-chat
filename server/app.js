@@ -1,3 +1,7 @@
+require("dotenv").config();
+const mongoURI = process.env.MONGODB_URI;
+console.log(mongoURI); // This should output your MongoDB URI if it's being loaded correctly
+
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
@@ -5,14 +9,11 @@ const user = require("./routers/user.js");
 const room = require("./routers/rooms.js");
 const message = require("./routers/message.js");
 
-require("dotenv").config();
-
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-const mongoURI = process.env.MONGODB_URI;
-
+mongoose.set("strictQuery", true);
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected..."))
