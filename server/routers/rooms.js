@@ -30,26 +30,27 @@ router.post("/rooms", async (req, res) => {
 // current route: /room
 router.get("/", async (req, res) => {
   console.log("test");
-  // try {
-  // Fetch all rooms from the database
-  // const rooms = await Room.find({}).toArray();
+  try {
+    // Fetch all rooms from the database
+    const rooms = await find({}).toArray();
 
-  // Respond with the list of rooms
-  res.status(200).json({
-    message: "Rooms fetched successfully",
-    rooms: [
-      {
-        name: "derp",
-        description: "asdfasdf",
-        addedUsers: "asdfasd",
-      },
-    ],
-  });
-  // } catch (error) {
-  //   res
-  //     .status(500)
-  //     .send({ message: "Failed to fetch rooms", error: error.message });
-  // }
+    // Respond with the list of rooms
+    res.status(200).json({
+      message: "Rooms fetched successfully",
+      rooms: rooms,
+      // rooms: [
+      //   {
+      //     name: "derp",
+      //     description: "asdfasdf",
+      //     addedUsers: "asdfasd",
+      //   },
+      // ],
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Failed to fetch rooms", error: error.message });
+  }
 });
 
 router.put("/rooms/update/:id", async (req, res) => {
@@ -57,7 +58,7 @@ router.put("/rooms/update/:id", async (req, res) => {
     const { id } = req.params; // The room's ID from the URL
     const updateData = req.body; // Data for updating the room
 
-    const updatedRoom = await Room.findByIdAndUpdate(id, updateData, {
+    const updatedRoom = await findByIdAndUpdate(id, updateData, {
       new: true,
     });
 
@@ -75,13 +76,12 @@ router.put("/rooms/update/:id", async (req, res) => {
   }
 });
 
-
 // current route: /room/rooms/:id
 router.delete("/rooms/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deletedRoom = await Room.findByIdAndDelete(id);
+    const deletedRoom = await findByIdAndDelete(id);
 
     if (!deletedRoom) {
       return res.status(404).json({ message: "Room not found" });
