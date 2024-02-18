@@ -1,12 +1,12 @@
 const router = require('express').Router()
-const message = require('../models/message')
+const Message = require('../models/message')
 
 //display messages w/ room endpoint
 router.get('/room/:roomID/messages', async (req, res) => {
     try {
         const { roomID } = req.params;
         const messages = await message.find({ room: roomID })
-        red.status(200).json({ message: 'Success!'});
+        res.status(200).json({ message: 'Success!'});
     } catch (err) {
         res.status(500).json({ message: 'Failed to fetch messages'. error})
     }

@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Room from "./Room";
 
-// const rooms = [
-//   {
-//     name: "derp",
-//     description: "asdfasdf",
-//     addedUsers: "asdfasd",
-//   },
-// ];
 
 function Rooms() {
   const [rooms, setRooms] = useState([]);

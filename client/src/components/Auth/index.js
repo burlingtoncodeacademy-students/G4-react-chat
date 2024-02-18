@@ -10,13 +10,13 @@ function Auth({ updateToken }) {
   };
 
   const handleLogin = (data) => {
-    // Implement login logic here and update token
-    updateToken(/* token from login response */);
+    //TODO: Implement login logic here and update token
+    updateToken(data.token);
   };
 
   const handleRegister = (data) => {
-    // Implement registration logic here and update token
-    updateToken(/* token from registration response */);
+    //TODO: Implement registration logic here and update token
+    updateToken(data.token);
   };
 
   return (

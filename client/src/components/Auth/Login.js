@@ -7,6 +7,7 @@ function Login({ onLogin, onToggle }) {
 
   // Handle login click
   const handleLogin = () => {
+    console.log("Handle Login clicked") //! temp keep for testing. log should appear when button is clicked
     // Perform the fetch request to the login endpoint
     fetch("/login", {
       method: "POST",
@@ -16,18 +17,20 @@ function Login({ onLogin, onToggle }) {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => {
+        console.log("response status:", response.status) //! temp keep for testing
         if (!response.ok) {
           throw new Error("Login failed");
         }
         return response.json();
       })
       .then((data) => {
+        console.log("data from the server:", data) //! temp keep for testing
         // Call the onLogin prop with the token received (or the entire data)
         onLogin(data.token); // Assuming the token is in the data response
       })
       .catch((error) => {
-        console.error("Error logging in:", error);
-        setError(error.message);
+        console.error("Error logging in:", error); //! temp keep for testing
+        setError("Invalid email or password"); //updated for clarity
       });
   };
 

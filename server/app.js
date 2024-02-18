@@ -1,5 +1,7 @@
 require("dotenv").config();
-const mongoURI = process.env.MONGODB_URI;
+
+const mongoURI = process.env.DB_URL;
+console.log(process.env.DB_URL)
 console.log(mongoURI); // This should output your MongoDB URI if it's being loaded correctly
 
 const mongoose = require("mongoose");
@@ -24,7 +26,7 @@ app.use(cors());
 
 //check browser response
 app.get("/", (req, res) => {
-  console.log("sdfsdff");
+  console.log("server received a connection request") //!temp keep for testing
   res.send("it works!");
 });
 // Use the user routes with the base path '/users'

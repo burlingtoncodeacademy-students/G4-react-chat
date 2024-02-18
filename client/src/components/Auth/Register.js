@@ -8,6 +8,7 @@ function Register({ onRegister, onToggle }) {
 
   // Handle register click
   const handleRegister = () => {
+    //TODO: Implement registration logic here and update the token
     onRegister({ firstName, lastName, email, password });
   };
 

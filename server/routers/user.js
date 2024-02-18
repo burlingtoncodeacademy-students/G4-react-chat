@@ -38,6 +38,7 @@ router.post('/signup', async (req, res) => {
 
 router.post("/login", async(req, res) => {
     try {
+        console.log("server received a login request") //! temp keep for testing
 
         const { email, password } = req.body;
 
@@ -102,4 +103,4 @@ router.delete("/users/:id", async (req, res) => {
 });
 
 
-module.exports = router
+module.exports = router;

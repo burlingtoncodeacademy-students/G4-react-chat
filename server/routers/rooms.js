@@ -1,5 +1,5 @@
 const router = require("express").Router();
-// const Room = require("../models/rooms");
+const Room = require("../models/rooms");
 
 router.post("/rooms", async (req, res) => {
   try {
@@ -75,7 +75,6 @@ router.put("/rooms/update/:id", async (req, res) => {
   }
 });
 
-// //delete
 
 // current route: /room/rooms/:id
 router.delete("/rooms/:id", async (req, res) => {
