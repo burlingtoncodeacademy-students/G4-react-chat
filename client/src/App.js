@@ -13,13 +13,14 @@ function App() {
     setAuthToken(token);
   };
 
-  // console.log("auth token", authToken);
+  console.log("auth token", authToken);
 
   return (
     <div className="App">
+      Hello
       {/* if token is present, render Room component. Otherwise, render Auth component. */}
-      {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
-      <Rooms />
+      {/* {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
+      <Rooms /> */}
     </div>
   );
 }
