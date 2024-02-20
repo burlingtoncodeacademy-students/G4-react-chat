@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Room = require("../models/rooms");
+console.log("asdf");
+console.log(Room);
 
 router.post("/rooms", async (req, res) => {
   try {
@@ -29,22 +31,15 @@ router.post("/rooms", async (req, res) => {
 
 // current route: /room
 router.get("/", async (req, res) => {
-  console.log("test");
+  console.log("GET /room");
   try {
     // Fetch all rooms from the database
-    const rooms = await find({}).toArray();
+    const rooms = await Room.find();
 
     // Respond with the list of rooms
     res.status(200).json({
       message: "Rooms fetched successfully",
-      rooms: rooms,
-      // rooms: [
-      //   {
-      //     name: "derp",
-      //     description: "asdfasdf",
-      //     addedUsers: "asdfasd",
-      //   },
-      // ],
+      rooms,
     });
   } catch (error) {
     res

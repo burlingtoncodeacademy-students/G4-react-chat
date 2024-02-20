@@ -8,6 +8,8 @@ function App() {
   console.log("rendering app component now"); //! temp keep for testing
   const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
 
+  const token = 1;
+
   const updateToken = (token) => {
     localStorage.setItem("authToken", token);
     setAuthToken(token);
@@ -19,8 +21,8 @@ function App() {
     <div className="App">
       Hello
       {/* if token is present, render Room component. Otherwise, render Auth component. */}
-      {/* {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
-      <Rooms /> */}
+      {/* {authToken ? <Rooms /> : <Auth updateToken={updateToken} />} */}
+      <Rooms />
     </div>
   );
 }

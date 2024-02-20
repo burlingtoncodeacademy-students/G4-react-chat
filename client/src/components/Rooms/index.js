@@ -6,7 +6,8 @@ function Rooms() {
   const [currentRoom, setCurrentRoom] = useState(null);
 
   const fetchRooms = () => {
-    const url = `${process.env.REACT_APP_API_URL}/rooms`;
+    const url = `http://localhost:3000/room`;
+    console.log(url);
     fetch(url, {
       method: "GET",
       headers: {
@@ -14,7 +15,11 @@ function Rooms() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setRooms(data))
+      .then((data) => {
+        console.log("fetch rooms GET");
+        console.log(data);
+        setRooms(data);
+      })
       .catch((err) => console.log(err));
     // const response = fetch("/rooms"); //https://localhost:3000?
     // console.log("response", response);
@@ -40,14 +45,15 @@ function Rooms() {
 
   return (
     <div>
-      <ul>
+      <h1>Rooms</h1>
+      {/* <ul>
         {rooms.map((room) => (
           <li key={room.id} onClick={() => setCurrentRoom(room)}>
             {room.name}
           </li>
         ))}
       </ul>
-      {currentRoom && <Room roomId={currentRoom.id} />}
+      {currentRoom && <Room roomId={currentRoom.id} />} */}
     </div>
   );
 }
