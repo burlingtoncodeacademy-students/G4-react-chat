@@ -9,7 +9,7 @@ function Room({ roomId }) {
     const fetchMessages = async () => {
       // const response = await fetch(`/src/rooms/${roomId}/messages`);
       const response = await fetch(
-        `../../server/routers/rooms/${roomId}/messages`
+        `${process.env.REACT_APP_API_URL}/rooms/${roomId}/messages`
       );
       const messagesData = await response.json();
       setMessages(messagesData);
@@ -25,7 +25,7 @@ function Room({ roomId }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Use the authToken from localStorage
+        // Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Use the authToken from localStorage
       },
       body: JSON.stringify({ text: newMessage }),
     });
