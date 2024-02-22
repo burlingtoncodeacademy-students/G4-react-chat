@@ -5,14 +5,20 @@ function Room({ roomId }) {
   const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
-    // Function to fetch messages for the room
     const fetchMessages = async () => {
-      // const response = await fetch(`/src/rooms/${roomId}/messages`);
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/rooms/${roomId}/messages`
-      );
-      const messagesData = await response.json();
-      setMessages(messagesData);
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/rooms/${roomId}/messages`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const messagesData = await response.json();
+        console.log(messagesData); // Check the structure of the fetched data
+        setMessages(messagesData);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
     };
 
     fetchMessages();

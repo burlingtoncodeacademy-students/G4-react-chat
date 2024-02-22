@@ -38,7 +38,7 @@ function Rooms() {
         ))}
       </ul>
       {currentRoom && <Room roomId={currentRoom._id} />}{" "}
-      {/* Adjust this if necessary to match your data structure */}
+      {/* Adjust this if necessary to match data structure */}
     </div>
   );
 }
