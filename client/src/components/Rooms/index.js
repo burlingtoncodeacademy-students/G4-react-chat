@@ -5,55 +5,40 @@ function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
 
-  const fetchRooms = () => {
-    const url = `http://localhost:3000/room`;
-    console.log(url);
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("fetch rooms GET");
-        console.log(data);
-        setRooms(data);
-      })
-      .catch((err) => console.log(err));
-    // const response = fetch("/rooms"); //https://localhost:3000?
-    // console.log("response", response);
-    // const roomsData = response.json();
-    // console.log("roomsData", roomsData);
-    // console.log(roomsData);
-    // setRooms(roomsData);
-  };
-
   useEffect(() => {
-    // Fetch the list of rooms from the server
-    // async function fetchRooms() {
-    //   const response = await fetch("/rooms"); //https://localhost:3000?
-    //   console.log("response", response);
-    //   const roomsData = await response.json();
-    //   console.log("roomsData", roomsData);
-    //   console.log(roomsData);
-    //   setRooms(roomsData);
-    // }
+    const fetchRooms = async () => {
+      const url = "http://localhost:3000/room";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setRooms(data.rooms); // Ensure the backend sends an object with a 'rooms' property
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
 
     fetchRooms();
   }, []);
 
+  const handleRoomClick = (room) => {
+    setCurrentRoom(room);
+  };
+
   return (
     <div>
       <h1>Rooms</h1>
-      {/* <ul>
+      <ul>
         {rooms.map((room) => (
-          <li key={room.id} onClick={() => setCurrentRoom(room)}>
-            {room.name}
+          <li key={room._id} onClick={() => handleRoomClick(room)}>
+            {room.name} - {room.description}
           </li>
         ))}
       </ul>
-      {currentRoom && <Room roomId={currentRoom.id} />} */}
+      {currentRoom && <Room roomId={currentRoom._id} />}{" "}
+      {/* Adjust this if necessary to match your data structure */}
     </div>
   );
 }
