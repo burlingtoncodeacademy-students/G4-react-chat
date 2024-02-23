@@ -31,15 +31,19 @@ function Rooms() {
   };
 
   useEffect(() => {
-    // Fetch the list of rooms from the server
-    // async function fetchRooms() {
-    //   const response = await fetch("/rooms"); //https://localhost:3000?
-    //   console.log("response", response);
-    //   const roomsData = await response.json();
-    //   console.log("roomsData", roomsData);
-    //   console.log(roomsData);
-    //   setRooms(roomsData);
-    // }
+    const fetchRooms = async () => {
+      const url = "http://localhost:3000/room";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setRooms(data.rooms); // Ensure the backend sends an object with a 'rooms' property
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
 
     fetchRooms();
   }, []);
