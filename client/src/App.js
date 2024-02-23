@@ -50,7 +50,7 @@ function App() {
     <div className="App">
       Hello
       {/* if token is present, render Room component. Otherwise, render Auth component. */}
-      {/* {authToken ? <Rooms /> : <Auth updateToken={updateToken} />} */}
+      {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
       <Rooms />
     </div>
   );

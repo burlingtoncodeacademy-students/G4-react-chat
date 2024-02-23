@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Room = require("../models/rooms");
-console.log("asdf");
+const { findByIdAndUpdate, findByIdAndDelete } = require("mongoose");
 console.log(Room);
 
 router.post("/rooms", async (req, res) => {

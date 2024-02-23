@@ -56,7 +56,7 @@ function Room({ roomId }) {
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
       />
-      <button onClick={sendMessage()}>Send</button>
+      <button onClick={sendMessage}>Send</button>
     </div>
     </>
   );
