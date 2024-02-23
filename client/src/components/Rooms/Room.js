@@ -21,11 +21,11 @@ function Room({ roomId }) {
   const sendMessage = async () => {
     // Send the message to the server
     // const response = await fetch(`/src/rooms/${roomId}/send`, {
-    const response = await fetch(`../../server/routers/rooms/${roomId}/send`, {
+    const response = await fetch(`http://localhost:3000/room/${roomId}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Use the authToken from localStorage
+        // Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Use the authToken from localStorage
       },
       body: JSON.stringify({ text: newMessage }),
     });
@@ -37,6 +37,8 @@ function Room({ roomId }) {
   };
 
   return (
+    <>
+    <h1>{`Hello World!!! ${roomId}`}</h1>
     <div>
       <div>
         {messages.map((message, index) => (
@@ -48,8 +50,9 @@ function Room({ roomId }) {
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
       />
-      <button onClick={sendMessage}>Send</button>
+      <button onClick={sendMessage()}>Send</button>
     </div>
+    </>
   );
 }
 

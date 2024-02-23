@@ -36,30 +36,57 @@ function Login({ onLogin, onToggle }) {
 
   // Form fields
   return (
-    <div>
-      <h2 className="login-title">Login Form</h2>
-      {error && <p className="error">{error}</p>}{" "}
-      {/* Display any login errors */}
-      <label>Email:</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <label>Password:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <button className="login-btn" onClick={handleLogin}>
-        Login
-      </button>
-      <p>
-        New user? <button onClick={onToggle}>Sign up here!</button>
-      </p>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+    }}>
+      <div style={{ width: '100%', maxWidth: '400px' }}>
+        <h2 className="login-title" style={{ textAlign: 'center' }}>Login Form</h2>
+        {error && <p className="error" style={{ textAlign: 'center', color: 'red' }}>{error}</p>}
+        
+        <div style={{ marginBottom: '10px' }}>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{ display: 'block', width: '100%' }}
+          />
+        </div>
+        
+        <div style={{ marginBottom: '20px' }}> {/* Increased space for password */}
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ display: 'block', width: '100%' }}
+          />
+        </div>
+        
+        <button
+          className="login-btn"
+          onClick={handleLogin}
+          style={{
+            width: '100%',
+            padding: '10px',
+            marginBottom: '20px', // Increased space below button
+          }}
+        >
+          Login
+        </button>
+        
+        <div style={{ textAlign: 'center' }}> {/* Center the sign-up link */}
+          <p>
+            New user? <button onClick={onToggle}>Sign up here!</button>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

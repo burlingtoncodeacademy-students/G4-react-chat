@@ -5,10 +5,10 @@ function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
 
-  const fetchRooms = () => {
+  const fetchRooms =  async () => {
     const url = `http://localhost:3000/room`;
-    console.log(url);
-    fetch(url, {
+    // console.log(url);
+     await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -16,9 +16,10 @@ function Rooms() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("fetch rooms GET");
-        console.log(data);
-        setRooms(data);
+        // console.log("fetch rooms GET");
+        // console.log('rooms data', data.rooms);
+        setRooms(data.rooms);
+        // console.log('typeof', typeof(data.rooms))
       })
       .catch((err) => console.log(err));
     // const response = fetch("/rooms"); //https://localhost:3000?
@@ -43,17 +44,28 @@ function Rooms() {
     fetchRooms();
   }, []);
 
+  /* 
+  let variable = roomList[index]
+  return (
+    button - onClick setCurrentRoom
+  )
+  */
+
+
+
   return (
     <div>
       <h1>Rooms</h1>
-      {/* <ul>
+      
+      <ul>
         {rooms.map((room) => (
-          <li key={room.id} onClick={() => setCurrentRoom(room)}>
+          <button key={room.id} onClick={() => 
+            setCurrentRoom(room)}>
             {room.name}
-          </li>
+          </button>
         ))}
       </ul>
-      {currentRoom && <Room roomId={currentRoom.id} />} */}
+      {currentRoom && <Room roomId={currentRoom.id} />}
     </div>
   );
 }

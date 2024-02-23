@@ -29,7 +29,7 @@ router.post("/rooms", async (req, res) => {
   }
 });
 
-// current route: /room
+
 router.get("/", async (req, res) => {
   console.log("GET /room");
   try {
@@ -47,6 +47,7 @@ router.get("/", async (req, res) => {
       .send({ message: "Failed to fetch rooms", error: error.message });
   }
 });
+
 
 router.put("/rooms/update/:id", async (req, res) => {
   try {

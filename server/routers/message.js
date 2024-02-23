@@ -5,7 +5,7 @@ const Message = require('../models/message')
 router.get('/room/:roomID/messages', async (req, res) => {
     try {
         const { roomID } = req.params;
-        const messages = await message.find({ room: roomID })
+        const messages = await Message.find({ room: roomID })
         res.status(200).json({ message: 'Success!'});
     } catch (err) {
         res.status(500).json({ message: 'Failed to fetch messages'. error})
@@ -36,7 +36,7 @@ router.post('/rooms/:roomId/messages', async (req, res) => {
 })
 
 //update ""
-router.patch('rooms/:roomId/messages/:messageId', async (req,res) => {
+router.patch('/rooms/:roomId/messages/:messageId', async (req,res) => {
     try {
         const { messageId } = req.params;
         const { body } = req.body
