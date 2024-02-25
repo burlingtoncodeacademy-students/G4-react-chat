@@ -4,7 +4,7 @@ function Room({ roomId, index }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 // console.log(roomId) //! temp keep for testing
-  useEffect(() => {
+  // useEffect(() => {
     const fetchMessages = async () => {
       try {
         const response = await fetch(
@@ -14,31 +14,30 @@ function Room({ roomId, index }) {
           throw new Error("Network response was not ok");
         }
         const messagesData = await response.json();
-        console.log(messagesData); // Check the structure of the fetched data
+        console.log(messagesData); //! temp keep to check the structure of the fetched data
         setMessages(messagesData);
       } catch (error) {
         console.error("Fetch error:", error);
       }
     };
-
-    fetchMessages();
-  }, [roomId]);
+    useEffect(() => {
+      fetchMessages();
+    }, [roomId]);
 
   const sendMessage = async () => {
     // Send the message to the server
-    // const response = await fetch(`/src/rooms/${roomId}/send`, {
-    const response = await fetch(`http://localhost:3000/room/${roomId}/messages`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/rooms/${roomId}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Use the authToken from localStorage
       },
-      body: JSON.stringify({ text: newMessage }),
+      body: JSON.stringify({ user: "currentUserId", body: newMessage }),
     });
 
     if (response.ok) {
       setNewMessage("");
       // Optionally fetch messages again to update the list
+      fetchMessages();
     }
   };
 
@@ -48,7 +47,7 @@ function Room({ roomId, index }) {
     <div>
       <div>
         {messages.map((message, index) => (
-          <div key={index}>{message.text}</div>
+          <div key={index}>{message.body}</div>
         ))}
       </div>
       <input
