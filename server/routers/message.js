@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Message = require('../models/message')
 
-//display messages w/ room endpoint
+// Display messages for a specific room
 router.get('/room/:roomID/messages', async (req, res) => {
     try {
         const { roomID } = req.params;
@@ -12,7 +12,7 @@ router.get('/room/:roomID/messages', async (req, res) => {
     }
 });
    
-//create messages w/ room endpoint
+//create a new message for a specific room
 router.post('/rooms/:roomId/messages', async (req, res) => {
     try {
         const { roomId } = req.params;
@@ -29,13 +29,12 @@ router.post('/rooms/:roomId/messages', async (req, res) => {
         await newMessage.save()
 
         res.status(200).json({ message: 'Message created successfully', newMessage })
-
     } catch (error) {
         res.status(500).json({ message: 'Failed to create message', error: error.message })
     }
 })
 
-//update ""
+//update the body of a specific message in a room
 router.patch('/rooms/:roomId/messages/:messageId', async (req,res) => {
     try {
         const { messageId } = req.params;
@@ -57,7 +56,7 @@ router.patch('/rooms/:roomId/messages/:messageId', async (req,res) => {
     }
 });
 
-//delete ""
+// Delete a specific message in a room
 router.delete('/rooms/:roomId/messages/:messageId', async (req, res) => {
     try {
         const { messageId } = req.params;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function Room({ roomId }) {
+function Room({ roomId, index }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-
+// console.log(roomId) //! temp keep for testing
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -44,7 +44,7 @@ function Room({ roomId }) {
 
   return (
     <>
-    <h1>{`Hello World!!! ${roomId}`}</h1>
+    <h1>{`${index}`}</h1>
     <div>
       <div>
         {messages.map((message, index) => (

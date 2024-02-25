@@ -38,7 +38,7 @@ router.post('/signup', async (req, res) => {
 
 router.post("/login", async(req, res) => {
     try {
-        console.log("server received a login request") //! temp keep for testing
+        // console.log("server received a login request") //! temp keep for testing
 
         const { email, password } = req.body;
 

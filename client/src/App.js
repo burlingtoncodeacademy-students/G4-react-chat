@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Auth from "./components/Auth";
-import Rooms from "./components/Rooms"; // Make sure to import Rooms
+import RoomsList from "./components/Rooms/RoomsList.js"; 
 
 import "./App.css";
 
@@ -48,10 +48,8 @@ function App() {
 
   return (
     <div className="App">
-      Hello
       {/* if token is present, render Room component. Otherwise, render Auth component. */}
-      {authToken ? <Rooms /> : <Auth updateToken={updateToken} />}
-      <Rooms />
+      {authToken ? <RoomsList /> : <Auth updateToken={updateToken} />}
     </div>
   );
 }

@@ -3,35 +3,9 @@ const Room = require("../models/rooms");
 const { findByIdAndUpdate, findByIdAndDelete } = require("mongoose");
 console.log(Room);
 
-router.post("/rooms", async (req, res) => {
-  try {
-    const { name, description, addedUsers } = req.body;
-
-    // Create a new Room instance
-    const newRoom = new Room({
-      name,
-      description,
-      addedUsers, // Assuming this is an array of user IDs
-    });
-
-    // Save the room to the database
-    await newRoom.save();
-
-    // Respond with the created room
-    res.status(201).json({
-      message: "Room created successfully",
-      room: newRoom,
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .send({ message: "Failed to create the room", error: error.message });
-  }
-});
-
-
+// Get index page
 router.get("/", async (req, res) => {
-  console.log("GET /room");
+  // console.log("GET /room"); //! temp keep for testing
   try {
     // Fetch all rooms from the database
     const rooms = await Room.find();
@@ -44,12 +18,56 @@ router.get("/", async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .send({ message: "Failed to fetch rooms", error: error.message });
+      .send({ message: "Rooms fetch failed", error: error.message });
   }
 });
 
+// Post a new room
+router.post("/rooms", async (req, res) => {
+  try {
+    const { name, description, addedUsers } = req.body;
 
-router.put("/rooms/update/:id", async (req, res) => {
+    // Create a new Room instance
+    const newRoom = new Room({
+      name,
+      description,
+      addedUsers, //! Assuming this is an array of user IDs
+    });
+
+    // Save the new room to the database
+    await newRoom.save();
+
+    // Respond with the created room
+    res.status(200).json({
+      message: "Room created successfully",
+      room: newRoom,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Failed to create the room", error: error.message });
+  }
+});
+
+// Get specific room by ID
+router.get("/rooms/:roomId", async (req, res) => {
+  try {
+    const roomId = req.params.roomId;
+
+    // Respond with the fetched room
+    res.status(200).json({
+      message: "Room fetched successfully",
+      room,
+    })
+  } catch (error) {
+    res
+    .status(500)
+    .send({ message: "Room fetch failed", error: error.message });
+  }
+})
+
+// Update specific room by ID
+router.put("/rooms/:id", async (req, res) => {
   try {
     const { id } = req.params; // The room's ID from the URL
     const updateData = req.body; // Data for updating the room
@@ -59,9 +77,10 @@ router.put("/rooms/update/:id", async (req, res) => {
     });
 
     if (!updatedRoom) {
-      return res.status(404).send({ message: "Room not found" });
+      return res.status(404).send({ message: "Room not found" }); //! 
     }
 
+    // Respond with the updated room
     res
       .status(200)
       .json({ message: "Room updated successfully", room: updatedRoom });
@@ -72,7 +91,7 @@ router.put("/rooms/update/:id", async (req, res) => {
   }
 });
 
-// current route: /room/rooms/:id
+// Delete specific room by ID
 router.delete("/rooms/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,6 +102,7 @@ router.delete("/rooms/:id", async (req, res) => {
       return res.status(404).json({ message: "Room not found" });
     }
 
+    // Respond with deleted room
     res.status(200).json({ message: "Room deleted successfully" });
   } catch (error) {
     res

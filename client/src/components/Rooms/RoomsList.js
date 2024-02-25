@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Room from "./Room";
+import "./Rooms.css"
 
-function Rooms() {
+function RoomsList() {
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
 
   const fetchRooms =  async () => {
     const url = `http://localhost:3000/room`;
-    // console.log(url);
+    // console.log(url); //! temp keep for testing
      await fetch(url, {
       method: "GET",
       headers: {
@@ -31,19 +32,19 @@ function Rooms() {
   };
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      const url = "http://localhost:3000/room";
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setRooms(data.rooms); // Ensure the backend sends an object with a 'rooms' property
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
-    };
+    // const fetchRooms = async () => {
+    //   const url = "http://localhost:3000/room";
+    //   try {
+    //     const response = await fetch(url);
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
+    //     const data = await response.json();
+    //     setRooms(data.rooms); // Ensure the backend sends an object with a 'rooms' property
+    //   } catch (error) {
+    //     console.error("Fetch error:", error);
+    //   }
+    // };
 
     fetchRooms();
   }, []);
@@ -54,24 +55,28 @@ function Rooms() {
     button - onClick setCurrentRoom
   )
   */
-
+ const handleRoomClick = (room) => {
+  setCurrentRoom(room);
+ }
 
 
   return (
     <div>
-      <h1>Rooms</h1>
+      <h1 className="room-select">Select Your Room:</h1>
       
       <ul>
-        {rooms.map((room) => (
-          <button key={room.id} onClick={() => 
-            setCurrentRoom(room)}>
+        {rooms.map((room, index) => (
+          <button key={room._id} onClick={() => 
+            handleRoomClick(room)}>
             {room.name}
           </button>
         ))}
       </ul>
-      {currentRoom && <Room roomId={currentRoom.id} />}
+      {currentRoom && <Room roomId={currentRoom._id} index={currentRoom.name} />}
     </div>
   );
+
 }
 
-export default Rooms;
+
+export default RoomsList;
